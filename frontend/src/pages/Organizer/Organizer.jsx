@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import "./Organizer.css";
+import FileBase64 from 'react-file-base64';
 
 const Organizer = () => {
   const [organizerName, setOrganizerName] = useState("");
   const [organizerEmail, setOrganizerEmail] = useState("");
   const [organizerPhoneNumber, setOrganizerPhoneNumber] = useState("");
-  const [organizerIdentification, setOrganizerIdentification] = useState();
+  const [organizerIdentification, setOrganizerIdentification] = useState("");
 
-  const handleSubmit = (e) => {
-    console.log({
-      organizerName,
-      organizerEmail,
-      organizerPhoneNumber,
-      organizerIdentification,
-    });
+  const handleSubmit = async () => {
+    let organizer = await fetch(`http://localhost:5000/api/organizers/add`,{
+      method:"POST",
+      headers:{
+          "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        name:organizerName,
+        email:organizerEmail,
+        contact: organizerPhoneNumber,
+        identityProof:organizerIdentification
+      })
+
+      
+ })
+
+ console.log(organizer.json())
+
   };
 
   return (
@@ -86,14 +98,20 @@ const Organizer = () => {
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
                   </p>
                 </div>
-                <input
+                {/* <input
                   id="dropzone-file"
                   type="file"
                   className=""
                   onChange={(e) =>
                     setOrganizerIdentification(e.target.files[0])
                   }
-                />
+                /> */}
+
+                <FileBase64
+          type="file"
+          multiple={false}
+          onDone={({ base64 }) => setOrganizerIdentification(base64)}
+        />
               </label>
             </div>
             <div className="flex items-center justify-center mt-2">
