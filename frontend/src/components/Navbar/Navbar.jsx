@@ -1,8 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../LoginButton";
+import LogoutButton from "../LogoutButton";
+import { motion } from "framer-motion";
+import "./Navbar.css";
+import { FaTimes } from "react-icons/fa";
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isShown, setIsShown] = useState(false);
+  const { isAuthenticated, user } = useAuth0();
+
+  const handleClick = (event) => {
+    setIsShown((current) => !current);
+    setIsShown(true);
+  };
+
+  const hideModel = (event) => {
+    setIsShown(false);
+  };
 
   return (
     <div className="bg-gray-900 shadow-md">
@@ -56,10 +73,34 @@ export const Nav = () => {
             </li>
 
             <li>
-              <button class="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
-                Sign Up
-              </button>
+              {!isAuthenticated ? (
+                <LoginButton />
+              ) : (
+                <motion.img
+                  style={{ cursor: "pointer" }}
+                  whileTap={{ scale: 0.98 }}
+                  src={user.picture}
+                  className="w-10 min-w-[40px] h-10 min-h-[40px] shadow-2xl rounded-full object-contain"
+                  alt="user"
+                  onClick={handleClick}
+                />
+              )}
             </li>
+            {isShown && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.6 }}
+                className="model w-40 shadow-xl bg-gray-900  rounded-lg flex flex-col absolute top-12 right-0"
+              >
+                <button className="nav-btn nav-close-btn" onClick={hideModel}>
+                  <FaTimes />
+                </button>
+                <span className="text">Welcome, {user.name}👋</span>
+
+                <LogoutButton className="btn" />
+              </motion.div>
+            )}
           </ul>
           <div class="lg:hidden">
             <button
