@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
+import Footer from "./components/Footer/Footer";
 import { Nav } from "./components/Navbar";
 import Admin from "./pages/Admin/Admin";
 import Events from "./pages/Events/Events";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/organizer" element={<Organizer />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );
