@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler');
 
 const addOrganizer = asyncHandler(async (req, res) => {
     const url = req.protocol + '://' + req.get('host')
-    const {name,email,image,contact,identityProof} = req.body;
+    const {name,email,image,contact,identityProof,isVerified} = req.body;
     const organizerExist = await Organizer.findOne({email});
     if(organizerExist){
         res.status(400);
@@ -14,7 +14,8 @@ const addOrganizer = asyncHandler(async (req, res) => {
         email,
         image,
         contact,
-        identityProof
+        identityProof,
+        isVerified
     })
     if(organizer){
         res.status(201).json({
@@ -23,7 +24,8 @@ const addOrganizer = asyncHandler(async (req, res) => {
             email: organizer.email,
             image: organizer.image,
             contact: organizer.contact,
-            identityProof:organizer.identityProof
+            identityProof:organizer.identityProof,
+            isVerified:organizer.isVerified
         })
     } else {
         res.status(400);
