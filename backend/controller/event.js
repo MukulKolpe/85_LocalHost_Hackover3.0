@@ -5,6 +5,51 @@ const getEvents = async (req, res) => {
     res.status(200).json(await Event.find())
   }
 
+  const deleteEvent = asyncHandler(async (req, res) => {
+    const event = await Event.findById(req.params.id)
+    if (event) {
+        await event.remove()
+        res.json({ message: 'Event removed' })
+    } else {
+        res.status(404)
+        throw new Error('Event not found')
+    }
+    })
+
+const updateEvent = asyncHandler(async (req, res) => {
+    const { title, description, image, date, time,mode ,location,price,tags} = req.body
+    const event = await Event.findById(req.params.id)
+    if (event) {
+        event.title = title
+        event.description = description
+        event.image = image
+        event.date = date
+        event.time = time
+        event.mode = mode
+        event.location = location
+        event.price = price
+        event.tags = tags
+        const updatedEvent = await event.save()
+        res.json({
+            _id: updatedEvent._id,
+            title: updatedEvent.title,
+            description: updatedEvent.description,
+            image: updatedEvent.image,
+            date: updatedEvent.date,
+            time: updatedEvent.time,
+            mode: updatedEvent.mode,
+            location: updatedEvent.location,
+            price: updatedEvent.price,
+            tags: updatedEvent.tags
+        })
+    } else {
+        res.status(404)
+        throw new Error('Event not found')
+    }
+})
+
+
+
 const addEvent = asyncHandler(async (req, res) => {
     const {title,description,time,date,image,mode,location,price,tags} = req.body;
     const event = await Event.create({
@@ -37,4 +82,4 @@ const addEvent = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = {getEvents,addEvent}
+module.exports = {getEvents,addEvent,deleteEvent ,updateEvent}
