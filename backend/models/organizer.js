@@ -21,6 +21,10 @@ const organizerSchema = new mongoose.Schema({
       type:String,
       required:true
     },
+    isVerified:{
+        type:Boolean,
+        default:false
+    }
 })
 
 module.exports = mongoose.model('Organizer', organizerSchema)
