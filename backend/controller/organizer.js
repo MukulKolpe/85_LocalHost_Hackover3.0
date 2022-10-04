@@ -2,7 +2,8 @@ const Organizer = require('../models/organizer');
 const asyncHandler = require('express-async-handler');
 
 const addOrganizer = asyncHandler(async (req, res) => {
-    const {name,email,image,contact} = req.body;
+    const url = req.protocol + '://' + req.get('host')
+    const {name,email,image,contact,identityProof} = req.body;
     const organizerExist = await Organizer.findOne({email});
     if(organizerExist){
         res.status(400);
@@ -12,7 +13,8 @@ const addOrganizer = asyncHandler(async (req, res) => {
         name,
         email,
         image,
-        contact
+        contact,
+        identityProof
     })
     if(organizer){
         res.status(201).json({
@@ -20,13 +22,15 @@ const addOrganizer = asyncHandler(async (req, res) => {
             name: organizer.name,
             email: organizer.email,
             image: organizer.image,
-            contact: organizer.contact
+            contact: organizer.contact,
+            identityProof:organizer.identityProof
         })
     } else {
         res.status(400);
         throw new Error('Organizer not created');
     }
 })
+
 
 const getOrganizer = async(req,res) => {
     res.status(200).json(await Organizer.find())

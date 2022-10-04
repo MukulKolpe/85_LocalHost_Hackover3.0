@@ -17,6 +17,10 @@ const organizerSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a contact number'],
     },
+    identityProof:{
+      type:String,
+      required:true
+    },
 })
 
 module.exports = mongoose.model('Organizer', organizerSchema)
