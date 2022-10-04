@@ -13,6 +13,7 @@ const connectDB = require('./db/connect')
 //routes
 const organizerRoutes = require('./routes/organizer')
 const eventRoutes = require('./routes/event')
+const userRoutes = require('./routes/user')
 
 
 app.use(express.json());
@@ -23,6 +24,7 @@ app.get('/api', (req, res) => {
 
 app.use('/api/organizers',organizerRoutes)
 app.use('/api/events',eventRoutes)
+app.use('/api/users',userRoutes)
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 
