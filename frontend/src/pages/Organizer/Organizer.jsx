@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Organizer.css";
-import FileBase64 from 'react-file-base64';
+import FileBase64 from "react-file-base64";
 
 const Organizer = () => {
   const [organizerName, setOrganizerName] = useState("");
@@ -9,32 +9,29 @@ const Organizer = () => {
   const [organizerIdentification, setOrganizerIdentification] = useState("");
 
   const handleSubmit = async () => {
-    let organizer = await fetch(`http://localhost:5000/api/organizers/add`,{
-      method:"POST",
-      headers:{
-          "Content-Type":"application/json"
+    let organizer = await fetch(`http://localhost:5000/api/organizers/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body:JSON.stringify({
-        name:organizerName,
-        email:organizerEmail,
+      body: JSON.stringify({
+        name: organizerName,
+        email: organizerEmail,
         contact: organizerPhoneNumber,
-        identityProof:organizerIdentification
-      })
+        identityProof: organizerIdentification,
+      }),
+    });
 
-      
- })
-
- console.log(organizer.json())
-
+    console.log(organizer.json());
   };
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <div className="flex w-[600px] items-center justify-center ">
         <div className="w-full">
-          <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <form className="bg-gray-900 shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
-              <label className="block text-black text-sm font-bold mb-3">
+              <label className="block text-white text-sm font-bold mb-3">
                 Name
               </label>
               <input
@@ -46,7 +43,7 @@ const Organizer = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-black text-sm font-bold mb-2">
+              <label className="block text-white text-sm font-bold mb-2">
                 Email
               </label>
               <input
@@ -58,7 +55,7 @@ const Organizer = () => {
               />
             </div>
             <div className="mb-4">
-              <label className="block text-black text-sm font-bold mb-2">
+              <label className="block text-white text-sm font-bold mb-2">
                 Phone Number
               </label>
               <input
@@ -69,7 +66,7 @@ const Organizer = () => {
                 onChange={(e) => setOrganizerPhoneNumber(e.target.value)}
               />
             </div>
-            <label className="block text-black text-sm font-bold mb-2">
+            <label className="block text-white text-sm font-bold mb-2">
               Add Identification
             </label>
             <div className="flex justify-center items-center w-full">
@@ -90,12 +87,15 @@ const Organizer = () => {
                       d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
                     ></path>
                   </svg>
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                  <p className="mb-2 text-sm text-gray-800 dark:text-gray-400">
                     <span className="font-semibold">Click to upload</span> or
                     drag and drop
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400">
                     SVG, PNG, JPG or GIF (MAX. 800x400px)
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Image size should be less than 1MB
                   </p>
                 </div>
                 {/* <input
@@ -108,15 +108,15 @@ const Organizer = () => {
                 /> */}
 
                 <FileBase64
-          type="file"
-          multiple={false}
-          onDone={({ base64 }) => setOrganizerIdentification(base64)}
-        />
+                  type="file"
+                  multiple={false}
+                  onDone={({ base64 }) => setOrganizerIdentification(base64)}
+                />
               </label>
             </div>
             <div className="flex items-center justify-center mt-2">
               <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-white hover:bg-gray-300 mt-4 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
                 onClick={handleSubmit}
               >
