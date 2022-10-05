@@ -141,7 +141,7 @@ const EventForm = () => {
                 className="bg-white border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-outline block w-full p-2.5 "
                 onChange={(e) => setEventTags(e.target.value)}
               >
-                <option selected>Choose a country</option>
+                <option selected>Choose a Tag</option>
                 <option value="Sports">Sports</option>
                 <option value="Tech">Tech</option>
                 <option value="Art">Art</option>
