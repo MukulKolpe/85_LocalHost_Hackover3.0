@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Image from "../../assets/New.svg";
 
 const Home = () => {
+  useEffect(() => {
+    AOS.init();
+  }, []);
   return (
     <div className="h-screen px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="grid gap-5 row-gap-8 lg:grid-cols-2">
-        <div className="flex flex-col justify-center">
+        <div data-aos="fade-right" className="flex flex-col justify-center">
           <div className="max-w-xl mb-6">
             <h2 className="text-center max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-none">
               Eventify
@@ -34,12 +40,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div>
-          <img
-            className="object-cover w-full h-56 rounded shadow-lg sm:h-96"
-            src="https://images.pexels.com/photos/2263436/pexels-photo-2263436.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
+        <div data-aos="fade-left">
+          <img className="image" src={Image} alt="" />
         </div>
       </div>
     </div>
