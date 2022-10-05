@@ -16,7 +16,7 @@ const Admin = () => {
       );
       const resJson = await response.json();
       await setOrganiserDetails(resJson);
-      // console.log(resJson);
+      console.log(resJson);
     };
     fetchApi();
   }, []);
@@ -83,14 +83,16 @@ const Admin = () => {
           </p>
         </div>
         <div className="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg">
-        {OrganiserDetails.map((organiser) => {
+        {OrganiserDetails?.map((organiser) => {
+          console.log(organiser._id);
           return (
             <OrganiserCard
-              key={organiser._id}
+              id={organiser._id}
               OrganiserName={organiser.name}
               OrganiserEmail={organiser.email}
               OrganiserPhone={organiser.contact}
               OrganiserDocument={organiser.identityProof}
+              OrganiserVerified={organiser.isVerified}
             />
             );
         })}

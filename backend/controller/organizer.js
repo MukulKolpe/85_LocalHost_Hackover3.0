@@ -37,6 +37,7 @@ const updateOrganizer = asyncHandler(async (req, res) => {
     const {name,email,image,contact,identityProof,isVerified} = req.body;
     const organizer = await Organizer.findById(req.params.id)
     if (organizer) {
+        console.log("Organizer found")
         organizer.name = name
         organizer.email = email
         organizer.image = image
