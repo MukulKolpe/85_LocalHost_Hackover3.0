@@ -9,6 +9,7 @@ const OrganiserCard = ({id,OrganiserName,OrganiserEmail,OrganiserDocument,Organi
   const[isVerified,setIsVerified] = useState(false);
 
   const handleSubmit = async () => {
+    console.log(isVerified);
     let organizer = await fetch(`http://localhost:5000/api/organizers/update/${id}`, {
           method: "PUT",
           headers: {
@@ -22,6 +23,7 @@ const OrganiserCard = ({id,OrganiserName,OrganiserEmail,OrganiserDocument,Organi
             contact: OrganiserPhone
           }),
         });
+        console.log("Soham")
         console.log(organizer.json());
   };
   return (

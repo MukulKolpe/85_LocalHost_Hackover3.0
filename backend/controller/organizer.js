@@ -38,13 +38,15 @@ const updateOrganizer = asyncHandler(async (req, res) => {
     const organizer = await Organizer.findById(req.params.id)
     if (organizer) {
         console.log("Organizer found")
+        console.log(isVerified)
         organizer.name = name
         organizer.email = email
         organizer.image = image
         organizer.contact = contact
         organizer.identityProof = identityProof
-        organizer.isVerified = isVerified
+        organizer.isVerified = true
         const updatedOrganizer = await organizer.save()
+        // console.log(updatedOrganizer)
         res.json({
             _id: updatedOrganizer._id,
             name: updatedOrganizer.name,
