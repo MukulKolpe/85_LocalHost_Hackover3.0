@@ -21,6 +21,28 @@ export const Nav = () => {
     setIsShown(false);
   };
 
+  const collectData = async () => {
+    let name = user.name;
+    let email = user.email;
+    let image = user.picture;
+    let result = await fetch("http://localhost:5000/api/users/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        image,
+      }),
+    });
+
+    result = await result.json();
+    console.log(result);
+  };
+
+  collectData();
+
   return (
     <div className="bg-gray-900 shadow-md">
       <div class="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
