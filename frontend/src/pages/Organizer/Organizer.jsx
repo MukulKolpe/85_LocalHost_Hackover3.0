@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Organizer.css";
 import FileBase64 from "react-file-base64";
 import Image from "../../assets/img.svg";
+import { ToastContainer, toast, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Organizer = () => {
   const [organizerName, setOrganizerName] = useState("");
@@ -9,6 +11,7 @@ const Organizer = () => {
   const [organizerPhoneNumber, setOrganizerPhoneNumber] = useState("");
   const [organizerIdentification, setOrganizerIdentification] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const notify = () => toast.success("Application Submitted Successfully!");
 
   const handleSubmit = async () => {
     let organizer = await fetch(`http://localhost:5000/api/organizers/add`, {
@@ -24,6 +27,7 @@ const Organizer = () => {
       }),
     });
     setIsSubmitted(true);
+    notify();
     console.log(organizer.json());
   };
   // if (handleSubmit) {
@@ -153,6 +157,19 @@ const Organizer = () => {
           </div>
         </div>
       )}
+      <ToastContainer
+        position="top-right"
+        autoClose={500}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Flip}
+      />
+      ;
     </div>
   );
 };
