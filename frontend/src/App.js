@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Footer from "./components/Footer/Footer";
 import { Nav } from "./components/Navbar/Navbar";
+import AddEvent from "./pages/AddEvent/AddEvent";
 import Admin from "./pages/Admin/Admin";
 import Events from "./pages/Events/Events";
 import Home from "./pages/Home/Home";
@@ -19,6 +20,7 @@ function App() {
           <Route path="/organizer" element={<Organizer />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/add-event" element={<AddEvent />} />
         </Routes>
         <Footer />
       </Router>

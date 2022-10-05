@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import FileBase64 from "react-file-base64";
 
 const EventForm = () => {
   const [eventTitle, setEventTitle] = useState("");
@@ -12,18 +13,25 @@ const EventForm = () => {
   const [eventPrice, setEventPrice] = useState(0);
   const [eventTags, setEventTags] = useState("");
 
-  const handleSubmit = (e) => {
-    console.log({
-      eventTitle,
-      eventDescription,
-      eventTime,
-      eventDate,
-      eventImage,
-      eventMode,
-      eventLocation,
-      eventPrice,
-      eventTags,
+  const handleSubmit = async (e) => {
+    let events = await fetch(`http://localhost:5000/api/events/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: eventTitle,
+        description: eventDescription,
+        time: eventTime,
+        date: eventDate,
+        image: eventImage,
+        mode: eventMode,
+        location: eventLocation,
+        price: eventPrice,
+        tags: eventTags,
+      }),
     });
+    console.log(events.json());
   };
 
   return (
@@ -129,13 +137,13 @@ const EventForm = () => {
                 onChange={(e) => setEventTags(e.target.value)}
               >
                 <option selected>Choose a country</option>
-                <option value="sports">Sports</option>
-                <option value="tech">Tech</option>
-                <option value="art">Art</option>
-                <option value="music">Music</option>
-                <option value="food">Food</option>
-                <option value="literature">Literature</option>
-                <option value="other">Other</option>
+                <option value="Sports">Sports</option>
+                <option value="Tech">Tech</option>
+                <option value="Art">Art</option>
+                <option value="Music">Music</option>
+                <option value="Food">Food</option>
+                <option value="Literature">Literature</option>
+                <option value="Other">Other</option>
               </select>
             </div>
             <label className="block text-white text-sm font-bold mb-2">
@@ -184,13 +192,14 @@ const EventForm = () => {
             /> */}
             {/* </label> */}
             {/* </div> */}
-
-            <input
-              className="block mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              id="banners"
-              type="file"
-              onChange={(e) => setEventImage(e.target.files[0])}
-            />
+            <div className="block mb-5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+              <FileBase64
+                id="banners"
+                type="file"
+                multiple={false}
+                onDone={({ base64 }) => setEventImage(base64)}
+              />
+            </div>
             <div className="flex items-center justify-center mt-2">
               <button
                 className="bg-white hover:bg-gray-300 mt-4 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
