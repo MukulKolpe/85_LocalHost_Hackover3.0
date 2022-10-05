@@ -6,6 +6,7 @@ import Admin from "./pages/Admin/Admin";
 import Events from "./pages/Events/Events";
 import Home from "./pages/Home/Home";
 import Organizer from "./pages/Organizer/Organizer";
+import Success from "./pages/Success/Success";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/events" element={<Events />} />
           <Route path="/organizer" element={<Organizer />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
         <Footer />
       </Router>
