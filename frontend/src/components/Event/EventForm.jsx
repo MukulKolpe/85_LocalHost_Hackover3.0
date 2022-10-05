@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import FileBase64 from "react-file-base64";
 
+import { useNavigate } from "react-router-dom";
+
 const EventForm = () => {
   const [eventTitle, setEventTitle] = useState("");
   const [eventDescription, setEventDescription] = useState("");
@@ -12,6 +14,7 @@ const EventForm = () => {
   const [eventLocation, setEventLocation] = useState("");
   const [eventPrice, setEventPrice] = useState(0);
   const [eventTags, setEventTags] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     let events = await fetch(`http://localhost:5000/api/events/add`, {
@@ -32,6 +35,8 @@ const EventForm = () => {
       }),
     });
     console.log(events.json());
+
+    navigate("/events");
   };
 
   return (
@@ -204,7 +209,9 @@ const EventForm = () => {
               <button
                 className="bg-white hover:bg-gray-300 mt-4 text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
-                onClick={handleSubmit}
+                onClick={() => {
+                  handleSubmit();
+                }}
               >
                 Submit
               </button>
