@@ -32,7 +32,7 @@ const Events = () => {
     <div className="events bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600">
       <div className="flex m-3">
         <div className="mb-4 mr-8">
-          <label className="label block text-white text-sm font-bold mb-3">
+          <label className="label block text-white font-bold mb-3 text-lg">
             Mode of Conduction
           </label>
           <select
@@ -47,8 +47,8 @@ const Events = () => {
           </select>
         </div>
 
-        <div className="mb-4">
-          <label className="label block text-white text-sm font-bold mb-3">
+        <div className="mb-4 ml-2">
+          <label className="label block text-black font-bold mb-3 text-lg">
             Tags
           </label>
           <select
