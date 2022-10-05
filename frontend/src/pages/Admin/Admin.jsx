@@ -25,7 +25,7 @@ const Admin = () => {
   const menus = [
     { name: "Verify Organizers", link: "/", icon: MdPendingActions },
     { name: "Approved Organizers", link: "/", icon: MdVerifiedUser },
-    { name: "Upcoming Events", link: "/", icon: MdMoving },
+    { name: "Upcoming Events", link: "/events", icon: MdMoving },
   ];
   const [open, setOpen] = useState(true);
   return (
