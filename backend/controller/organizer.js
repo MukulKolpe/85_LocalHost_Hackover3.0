@@ -33,9 +33,33 @@ const addOrganizer = asyncHandler(async (req, res) => {
     }
 })
 
-
+const updateOrganizer = asyncHandler(async (req, res) => {
+    const {name,email,image,contact,identityProof,isVerified} = req.body;
+    const organizer = await Organizer.findById(req.params.id)
+    if (organizer) {
+        organizer.name = name
+        organizer.email = email
+        organizer.image = image
+        organizer.contact = contact
+        organizer.identityProof = identityProof
+        organizer.isVerified = isVerified
+        const updatedOrganizer = await organizer.save()
+        res.json({
+            _id: updatedOrganizer._id,
+            name: updatedOrganizer.name,
+            email: updatedOrganizer.email,
+            image: updatedOrganizer.image,
+            contact: updatedOrganizer.contact,
+            identityProof: updatedOrganizer.identityProof,
+            isVerified: updatedOrganizer.isVerified,
+        })
+    } else {
+        res.status(404)
+        throw new Error('Organizer not found')
+    }
+})
 const getOrganizer = async(req,res) => {
     res.status(200).json(await Organizer.find())
 }
 
-module.exports = {getOrganizer,addOrganizer}
+module.exports = {getOrganizer,addOrganizer,updateOrganizer}
