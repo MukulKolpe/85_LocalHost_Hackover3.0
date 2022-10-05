@@ -1,9 +1,29 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Link} from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
-const OrganiserCard = ({key,OrganiserName,OrganiserEmail,OrganiserDocument,OrganiserPhone}) => {
-  console.log(OrganiserDocument);
-  const [showModal, setShowModal] = React.useState(false);
+const OrganiserCard = ({id,OrganiserName,OrganiserEmail,OrganiserDocument,OrganiserPhone,OrganiserVerified}) => {
+  
+  const [showModal, setShowModal] = useState(false);
+
+  const[isVerified,setIsVerified] = useState(false);
+
+  const handleSubmit = async () => {
+    let organizer = await fetch(`http://localhost:5000/api/organizers/update/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: OrganiserName,
+            email: OrganiserEmail,
+            identityProof: OrganiserDocument,
+            isVerified: isVerified,
+            contact: OrganiserPhone
+          }),
+        });
+        console.log(organizer.json());
+  };
   return (
     <div className="grid mx-10 gap-8 sm:max-w-sm sm:mx-auto lg:max-w-full">
         <div className="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-lg ">
@@ -43,12 +63,12 @@ const OrganiserCard = ({key,OrganiserName,OrganiserEmail,OrganiserDocument,Organ
               >
                 View Document
               </button>
-              <a
-                href="/"
+              <button
+              onClick={() => {setIsVerified(true);handleSubmit()}}
                 className="inline-flex items-center justify-center w-full h-10 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
               >
                 Verify
-              </a>
+              </button>
             </div>
             <div className="flex justify-start items-center hover:text-deep-purple-accent-700">
             </div>
