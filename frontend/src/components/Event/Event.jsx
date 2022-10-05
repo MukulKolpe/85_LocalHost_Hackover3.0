@@ -1,11 +1,29 @@
 import { React, useState, useEffect } from "react";
 import { RiChatFollowUpFill, RiUserFollowFill } from "react-icons/ri";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Event = ({ event }) => {
   const [url, setUrl] = useState("");
   const [isFollowing, setIsFollowing] = useState(false);
+ 
 
-  const handleClick = () => {
+  const {user } = useAuth0();
+  const email = user.email;
+
+  const handleClick = async () => {
+     let response = await fetch(`http://localhost:5000/api/events/follow`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        event: event._id,
+      }),
+    });
+    const final = await response.json();
+    console.log(final);
+      
     setIsFollowing(true);
   };
   const stripe = async () => {

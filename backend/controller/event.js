@@ -48,6 +48,10 @@ const updateEvent = asyncHandler(async (req, res) => {
     }
 })
 
+const searchEvent = async (req, res) => {
+    let searchData = await Event.find({"$and":[{mode:{"$regex":req.query.mode,"$options":"i"}},{tags:req.query.tags}]}) 
+    res.status(200).send(searchData)
+}
 
 
 const addEvent = asyncHandler(async (req, res) => {
@@ -82,4 +86,4 @@ const addEvent = asyncHandler(async (req, res) => {
     }
 })
 
-module.exports = {getEvents,addEvent,deleteEvent ,updateEvent}
+module.exports = {getEvents,addEvent,deleteEvent ,updateEvent , searchEvent}
