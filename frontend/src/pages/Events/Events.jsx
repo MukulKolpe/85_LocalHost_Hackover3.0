@@ -18,7 +18,7 @@ const Events = () => {
   }, []);
 
   return (
-    <div className="grid lg:grid-cols-4 md:grid-cols-3">
+    <div className="grid lg:grid-cols-4 md:grid-cols-3 bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600">
       {events.map((event) => {
         return <Event key={event.id} event={event} />;
       })}
