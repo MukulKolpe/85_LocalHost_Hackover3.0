@@ -1,33 +1,37 @@
-import {React,useState ,useEffect} from "react";
-import { RiChatFollowUpFill } from "react-icons/ri";
+import { React, useState, useEffect } from "react";
+import { RiChatFollowUpFill, RiUserFollowFill } from "react-icons/ri";
 
 const Event = ({ event }) => {
-  const[url,setUrl] = useState('')
+  const [url, setUrl] = useState("");
+  const [isFollowing, setIsFollowing] = useState(false);
 
+  const handleClick = () => {
+    setIsFollowing(true);
+  };
   const stripe = async () => {
-    let response = await fetch("http://localhost:5000/api/stripe/create-checkout-session", {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        price: event.price,
-        name: event.title,
-        description: event.description,
-        image: event.image,
-      })
-  
-  })
-  let result = await response.json();
-  setUrl(result.url)
-  console.log(result.url);
-   }
+    let response = await fetch(
+      "http://localhost:5000/api/stripe/create-checkout-session",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          price: event.price,
+          name: event.title,
+          description: event.description,
+          image: event.image,
+        }),
+      }
+    );
+    let result = await response.json();
+    setUrl(result.url);
+    console.log(result.url);
+  };
 
-   useEffect(() => {
-    stripe()
-
-   },[])
-
+  useEffect(() => {
+    stripe();
+  }, []);
 
   return (
     <div className="px-4 py-8 mx-5 sm:max-w-xl lg:w-[400px] md:w-[350px] md:px-6 lg:px-8 lg:py-10 sm:mx-auto rounded-xl">
@@ -74,25 +78,34 @@ const Event = ({ event }) => {
               </p>
             </div>
             <div className="mt-5 text-center md:mb-16 lg:mb-5">
-            <button  className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
-            <a
-                href = {url}
-                aria-label="Category"
-              >
-                Book Now
+              <button className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none">
+                <a href={url} aria-label="Category">
+                  Book Now
                 </a>
               </button>
             </div>
-            <div className="flex justify-start items-center hover:text-deep-purple-accent-700">
-              <RiChatFollowUpFill className="w-5 h-5 " />
-              <a
-                href="/"
-                className="transition-colors font-bold duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
-                aria-label="Category"
-              >
-                Follow
-              </a>
-            </div>
+            {!isFollowing ? (
+              <div className="flex justify-start items-center hover:text-deep-purple-accent-700">
+                <RiChatFollowUpFill className="w-5 h-5 " />
+                <button
+                  className="transition-colors font-bold duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
+                  aria-label="Category"
+                  onClick={handleClick}
+                >
+                  Follow
+                </button>
+              </div>
+            ) : (
+              <div className="flex justify-start items-center hover:text-deep-purple-accent-700">
+                <RiUserFollowFill className="w-5 h-5 " />
+                <button
+                  className="transition-colors font-bold duration-200 text-blue-gray-900 hover:text-deep-purple-accent-700"
+                  aria-label="Category"
+                >
+                  Following
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
