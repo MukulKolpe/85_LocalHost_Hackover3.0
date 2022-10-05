@@ -3,7 +3,8 @@ import "./Admin.css";
 import OrganiserCard from "../../components/OrganiserCard/OrganiserCard";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { Link } from "react-router-dom";
-import {AiFillCheckCircle} from "react-icons/ai"
+import {MdVerifiedUser,MdPendingActions,MdMoving} from "react-icons/md"
+import {BiSearch} from "react-icons/bi"
 
 const Admin = () => {
 
@@ -22,10 +23,9 @@ const Admin = () => {
   }, []);
 
   const menus = [
-    { name: "Verify Organizers", link: "/", icon: AiFillCheckCircle },
-    { name: "Approved Organizers", link: "/", icon: AiFillCheckCircle },
-    { name: "Verify Events", link: "/", icon: AiFillCheckCircle },
-    { name: "Approve Events", link: "/", icon: AiFillCheckCircle, margin: true },
+    { name: "Verify Organizers", link: "/", icon: MdPendingActions },
+    { name: "Approved Organizers", link: "/", icon: MdVerifiedUser },
+    { name: "Upcoming Events", link: "/", icon: MdMoving },
   ];
   const [open, setOpen] = useState(true);
   return (
@@ -79,7 +79,7 @@ const Admin = () => {
             Verify the Organisers
           </p>
           <p className="text-base text-gray-700 md:text-lg">
-            Verify the Organisers to maintain the sanctitiy of the platform and prevent fake events. 
+            Verify the Organisers to maintain the sanctity of the platform and prevent fake events. 
           </p>
         </div>
         <div className="grid gap-10 mx-auto lg:grid-cols-2 lg:max-w-screen-lg">
