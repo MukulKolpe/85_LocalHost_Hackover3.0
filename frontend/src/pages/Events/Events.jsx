@@ -18,7 +18,7 @@ const Events = () => {
   }, []);
 
   return (
-    <div className="h-screen grid lg:grid-cols-4 md:grid-cols-3">
+    <div className="grid lg:grid-cols-4 md:grid-cols-3">
       {events.map((event) => {
         return <Event key={event.id} event={event} />;
       })}
