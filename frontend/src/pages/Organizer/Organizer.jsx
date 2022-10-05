@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Organizer.css";
 import FileBase64 from "react-file-base64";
+import Image from "../../assets/img.svg";
 
 const Organizer = () => {
   const [organizerName, setOrganizerName] = useState("");
@@ -24,6 +25,19 @@ const Organizer = () => {
 
     console.log(organizer.json());
   };
+  if (handleSubmit) {
+    return (
+      <div className="form-submitted">
+        <div>
+          <img src={Image} alt="Thank you" width="400px" />
+        </div>
+        <div className="text-content">
+          <h2 className="text1">Thank you for showing interest!</h2>
+          <p className="text2">We'll get back to you soon.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
